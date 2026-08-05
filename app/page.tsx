@@ -13,7 +13,7 @@ export default function HomePage() {
         <p className="text-xs font-semibold uppercase tracking-widest text-accent-400">
           Política · {siteConfig.state}
         </p>
-        <h1 className="mt-3 max-w-2xl font-display text-3xl font-bold sm:text-4xl">
+        <h1 className="mt-3 max-w-2xl font-display text-3xl font-bold uppercase sm:text-4xl">
           {siteConfig.description}
         </h1>
         <Link

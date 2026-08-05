@@ -35,13 +35,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: [
-          "var(--font-space-grotesk)",
-          "var(--font-inter)",
-          "system-ui",
-          "sans-serif",
-        ],
+        sans: ["var(--font-montserrat)", "system-ui", "sans-serif"],
+        display: ["var(--font-montserrat)", "system-ui", "sans-serif"],
       },
     },
   },

@@ -9,7 +9,7 @@ export default function Wordmark({
   const base = variant === "dark" ? "text-white" : "text-brand-900";
 
   return (
-    <span className={`font-display font-bold lowercase ${base} ${className}`}>
+    <span className={`font-display font-bold uppercase ${base} ${className}`}>
       políticacom<span className={accent}>vocêpb</span>
     </span>
   );
