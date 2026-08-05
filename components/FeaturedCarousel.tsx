@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { PostMeta } from "@/lib/posts";
 import { siteConfig } from "@/lib/site.config";
-import { formatDate } from "@/lib/format";
-import CoverImage from "@/components/CoverImage";
+import IconMark from "@/components/IconMark";
 
 function categoryLabel(slug: string) {
   return siteConfig.categories.find((c) => c.slug === slug)?.label ?? slug;
@@ -34,29 +34,29 @@ export default function FeaturedCarousel({ posts }: { posts: PostMeta[] }) {
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
-      <Link href={`/noticias/${post.slug}`} className="group block">
-        <CoverImage
-          src={post.cover}
-          alt={post.title}
-          categoryLabel={categoryLabel(post.category)}
-          credit={post.coverCredit}
-          aspect="aspect-[21/9]"
-        />
-        <div className="mt-4">
-          <span className="mb-2 inline-block w-fit rounded-full bg-accent-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent-700">
-            {categoryLabel(post.category)}
-          </span>
-          <h2 className="font-display text-2xl font-bold text-brand-900 group-hover:text-accent-600">
-            {post.title}
-          </h2>
-          <p className="mt-2 line-clamp-2 text-sm text-brand-600">
-            {post.excerpt}
-          </p>
-          <div className="mt-3 flex items-center gap-2 text-xs text-brand-400">
-            <span>{post.author}</span>
-            <span>·</span>
-            <time dateTime={post.date}>{formatDate(post.date)}</time>
+      <Link
+        href={`/noticias/${post.slug}`}
+        className="group relative block aspect-[21/9] w-full overflow-hidden rounded-xl bg-brand-900"
+      >
+        {post.cover ? (
+          <Image
+            src={post.cover}
+            alt={post.title}
+            fill
+            priority
+            sizes="(min-width: 1024px) 768px, 100vw"
+            className="object-cover"
+          />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center">
+            <IconMark size={48} />
           </div>
+        )}
+
+        <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent px-5 py-4 sm:px-8 sm:py-6">
+          <span className="text-lg font-display font-bold text-white group-hover:text-accent-400 sm:text-2xl">
+            {post.title}
+          </span>
         </div>
       </Link>
 
