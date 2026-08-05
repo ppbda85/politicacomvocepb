@@ -14,6 +14,10 @@ export default function HomePage() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
+      <div className="mb-8">
+        <AdSlot label="Anuncie aqui" minHeight="120px" />
+      </div>
+
       {destaques.length > 0 && (
         <section className="mb-12">
           <h2 className="mb-4 font-display text-sm font-semibold uppercase tracking-wide text-brand-400">
