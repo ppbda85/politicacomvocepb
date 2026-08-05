@@ -1,9 +1,6 @@
 /**
- * Configuração central do site.
- *
- * O NOME AINDA NÃO FOI DECIDIDO — troque `name` e `shortName` aqui quando
- * for fechado (ex: "Política com Você PB") e o site inteiro atualiza
- * automaticamente (título, cabeçalho, rodapé, RSS, metadados de SEO).
+ * Configuração central do site. Troque `name`/`shortName` aqui e o site
+ * inteiro atualiza automaticamente (título, cabeçalho, rodapé, RSS, SEO).
  */
 export const siteConfig = {
   name: "Política com Você",
@@ -28,7 +25,11 @@ export const siteConfig = {
     { slug: "municipios", label: "Municípios" },
     { slug: "governo-estadual", label: "Governo Estadual" },
     { slug: "bastidores", label: "Bastidores" },
+    { slug: "opiniao", label: "Opinião" },
   ],
+
+  // Categorias mostradas como abas no cabeçalho (nem todas precisam aparecer ali).
+  primaryNav: ["eleicoes", "municipios", "opiniao"],
 } as const;
 
 export type Category = (typeof siteConfig.categories)[number];

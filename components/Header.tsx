@@ -16,15 +16,19 @@ export default function Header() {
           <Link href="/noticias" className="hover:text-accent-600">
             Notícias
           </Link>
-          {siteConfig.categories.slice(0, 3).map((cat) => (
-            <Link
-              key={cat.slug}
-              href={`/categoria/${cat.slug}`}
-              className="hidden hover:text-accent-600 md:inline"
-            >
-              {cat.label}
-            </Link>
-          ))}
+          {siteConfig.primaryNav.map((slug) => {
+            const cat = siteConfig.categories.find((c) => c.slug === slug);
+            if (!cat) return null;
+            return (
+              <Link
+                key={cat.slug}
+                href={`/categoria/${cat.slug}`}
+                className="hidden hover:text-accent-600 md:inline"
+              >
+                {cat.label}
+              </Link>
+            );
+          })}
           <Link href="/sobre" className="hover:text-accent-600">
             Sobre
           </Link>
