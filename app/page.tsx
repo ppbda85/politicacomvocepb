@@ -2,10 +2,14 @@ import Link from "next/link";
 import { getAllPostsMeta } from "@/lib/posts";
 import { siteConfig } from "@/lib/site.config";
 import PostCard from "@/components/PostCard";
+import FeaturedCarousel from "@/components/FeaturedCarousel";
+
+const FEATURED_COUNT = 5;
 
 export default function HomePage() {
   const posts = getAllPostsMeta();
-  const [destaque, ...resto] = posts;
+  const destaques = posts.slice(0, FEATURED_COUNT);
+  const resto = posts.slice(FEATURED_COUNT);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
@@ -24,12 +28,12 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {destaque && (
+      {destaques.length > 0 && (
         <section className="mb-12">
           <h2 className="mb-4 font-display text-sm font-semibold uppercase tracking-wide text-brand-400">
             Destaque
           </h2>
-          <PostCard post={destaque} />
+          <FeaturedCarousel posts={destaques} />
         </section>
       )}
 

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getAllSlugs, getPostBySlug } from "@/lib/posts";
 import { siteConfig } from "@/lib/site.config";
 import { formatDate } from "@/lib/format";
+import CoverImage from "@/components/CoverImage";
 import type { Metadata } from "next";
 
 export async function generateStaticParams() {
@@ -48,6 +49,18 @@ export default async function PostPage({
         <span>·</span>
         <time dateTime={post.date}>{formatDate(post.date)}</time>
       </div>
+
+      {post.cover && (
+        <div className="mt-6">
+          <CoverImage
+            src={post.cover}
+            alt={post.title}
+            categoryLabel={categoryLabel(post.category)}
+            credit={post.coverCredit}
+            aspect="aspect-[16/9]"
+          />
+        </div>
+      )}
 
       <div
         className="prose-article mt-8"

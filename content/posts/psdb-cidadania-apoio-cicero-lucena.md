@@ -4,6 +4,8 @@ date: "2026-08-05"
 excerpt: "Convenção estadual em João Pessoa selou o apoio da federação à pré-candidatura de Cícero Lucena ao governo da Paraíba, horas antes da convenção do MDB."
 category: "eleicoes"
 author: "Redação"
+cover: "/covers/cicero-lucena-2024.jpg"
+coverCredit: "Rodrigo Cabral/MCTI (CC BY 2.0)"
 ---
 
 A Federação PSDB-Cidadania realizou nesta quarta-feira (5), às 9h, sua

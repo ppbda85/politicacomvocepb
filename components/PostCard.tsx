@@ -8,13 +8,15 @@ function categoryLabel(slug: string) {
 }
 
 export default function PostCard({ post }: { post: PostMeta }) {
+  const label = categoryLabel(post.category);
+
   return (
     <Link
       href={`/noticias/${post.slug}`}
       className="group flex flex-col rounded-xl border border-brand-100 p-5 transition hover:border-accent-300 hover:shadow-sm"
     >
       <span className="mb-2 inline-block w-fit rounded-full bg-accent-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-accent-700">
-        {categoryLabel(post.category)}
+        {label}
       </span>
       <h3 className="font-display text-lg font-bold text-brand-900 group-hover:text-accent-600">
         {post.title}

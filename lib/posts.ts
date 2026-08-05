@@ -14,6 +14,7 @@ export type PostMeta = {
   category: string;
   author: string;
   cover?: string;
+  coverCredit?: string;
 };
 
 export type Post = PostMeta & {
@@ -44,6 +45,7 @@ export function getAllPostsMeta(): PostMeta[] {
       category: data.category ?? "geral",
       author: data.author ?? "Redação",
       cover: data.cover ?? undefined,
+      coverCredit: data.coverCredit ?? undefined,
     };
   });
 
