@@ -1,12 +1,15 @@
 import { getAllPostsMeta } from "@/lib/posts";
+import { safe } from "@/lib/safe";
 import PostCard from "@/components/PostCard";
+
+export const dynamic = "force-dynamic";
 
 export const metadata = {
   title: "Notícias",
 };
 
-export default function NoticiasPage() {
-  const posts = getAllPostsMeta();
+export default async function NoticiasPage() {
+  const posts = await safe(getAllPostsMeta(), []);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">

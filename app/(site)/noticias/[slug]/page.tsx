@@ -1,13 +1,12 @@
 import { notFound } from "next/navigation";
-import { getAllSlugs, getPostBySlug } from "@/lib/posts";
+import { getPostBySlug } from "@/lib/posts";
 import { siteConfig } from "@/lib/site.config";
 import { formatDate } from "@/lib/format";
+import { safe } from "@/lib/safe";
 import CoverImage from "@/components/CoverImage";
 import type { Metadata } from "next";
 
-export async function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
-}
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({
   params,
@@ -15,7 +14,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await safe(getPostBySlug(slug), null);
   if (!post) return {};
   return {
     title: post.title,
@@ -33,7 +32,7 @@ export default async function PostPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post = await safe(getPostBySlug(slug), null);
   if (!post) notFound();
 
   return (

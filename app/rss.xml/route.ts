@@ -1,8 +1,11 @@
 import { getAllPostsMeta } from "@/lib/posts";
 import { siteConfig } from "@/lib/site.config";
+import { safe } from "@/lib/safe";
+
+export const dynamic = "force-dynamic";
 
 export async function GET() {
-  const posts = getAllPostsMeta();
+  const posts = await safe(getAllPostsMeta(), []);
 
   const items = posts
     .map(

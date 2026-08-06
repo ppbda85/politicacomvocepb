@@ -1,21 +1,28 @@
 import { getAllPostsMeta, getPostsByCategory } from "@/lib/posts";
+import { getActiveAds } from "@/lib/ads";
+import { safe } from "@/lib/safe";
 import PostCard from "@/components/PostCard";
 import FeaturedCarousel from "@/components/FeaturedCarousel";
 import OpinionCard from "@/components/OpinionCard";
-import AdSlot from "@/components/AdSlot";
+import AdBanner from "@/components/AdBanner";
+
+export const dynamic = "force-dynamic";
 
 const FEATURED_COUNT = 5;
+const GRID_COUNT = 6;
 
-export default function HomePage() {
-  const posts = getAllPostsMeta();
+export default async function HomePage() {
+  const posts = await safe(getAllPostsMeta(), []);
   const destaques = posts.slice(0, FEATURED_COUNT);
-  const resto = posts.slice(FEATURED_COUNT);
-  const opinioes = getPostsByCategory("opiniao");
+  const resto = posts.slice(FEATURED_COUNT, FEATURED_COUNT + GRID_COUNT);
+  const opinioes = await safe(getPostsByCategory("opiniao"), []);
+  const topAds = await safe(getActiveAds("top"), []);
+  const sidebarAds = await safe(getActiveAds("sidebar"), []);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
       <div className="mb-8">
-        <AdSlot label="Anuncie aqui" minHeight="120px" />
+        <AdBanner ad={topAds[0]} minHeight="120px" fallbackLabel="Anuncie aqui" />
       </div>
 
       {destaques.length > 0 && (
@@ -48,8 +55,11 @@ export default function HomePage() {
 
           {posts.length === 0 && (
             <p className="text-brand-500">
-              Nenhum post publicado ainda. Adicione arquivos <code>.md</code>{" "}
-              em <code>content/posts</code>.
+              Nenhum post publicado ainda. Publique a primeira em{" "}
+              <a href="/admin" className="underline">
+                /admin
+              </a>
+              .
             </p>
           )}
         </section>
@@ -77,8 +87,8 @@ export default function HomePage() {
               Publicidade
             </h2>
             <div className="space-y-5">
-              <AdSlot />
-              <AdSlot label="Anuncie aqui" />
+              <AdBanner ad={sidebarAds[0]} />
+              <AdBanner ad={sidebarAds[1]} fallbackLabel="Anuncie aqui" />
             </div>
           </div>
         </aside>

@@ -1,11 +1,10 @@
 import { notFound } from "next/navigation";
 import { getPostsByCategory } from "@/lib/posts";
 import { siteConfig } from "@/lib/site.config";
+import { safe } from "@/lib/safe";
 import PostCard from "@/components/PostCard";
 
-export function generateStaticParams() {
-  return siteConfig.categories.map((cat) => ({ categoria: cat.slug }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function CategoriaPage({
   params,
@@ -16,7 +15,7 @@ export default async function CategoriaPage({
   const category = siteConfig.categories.find((c) => c.slug === categoria);
   if (!category) notFound();
 
-  const posts = getPostsByCategory(categoria);
+  const posts = await safe(getPostsByCategory(categoria), []);
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10">
